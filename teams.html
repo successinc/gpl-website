@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>টিমসমূহ - Gotergram Premier League</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #ffcc00;
+            --accent-color: #e63946;
+            --light-bg: #f8fff8;
+            --dark-text: #222;
+        }
+        
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        /* বাংলা ফন্ট অপ্টিমাইজেশন */
+        .bn-text {
+            line-height: 1.8;
+        }
+        
+        /* নেভিগেশন বার */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            margin: 0 8px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+        
+        /* হিরো সেকশন */
+        .page-hero {
+            background: linear-gradient(rgba(26, 93, 26, 0.8), rgba(26, 93, 26, 0.9)), url('https://images.unsplash.com/photo-1552667466-07770ae110d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        /* সেকশন স্টাইল */
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 3px;
+            background: var(--secondary-color);
+            bottom: -10px;
+            left: 15%;
+        }
+        
+        /* টিম কার্ড স্টাইল */
+        .team-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 30px;
+            text-align: center;
+            height: 100%;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 5px solid var(--primary-color);
+            margin-bottom: 30px;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .team-logo-large {
+            width: 120px;
+            height: 120px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+            border: 5px solid var(--secondary-color);
+        }
+        
+        .team-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* প্লেয়ার কার্ড */
+        .player-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .player-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .player-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 3px solid var(--secondary-color);
+        }
+        
+        .player-role {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        
+        /* টিম কালার ভ্যারিয়েশন */
+        .team-royal {
+            border-color: #8B0000;
+        }
+        
+        .team-riders {
+            border-color: #1E90FF;
+        }
+        
+        .team-hunter {
+            border-color: #228B22;
+        }
+        
+        .team-striker {
+            border-color: #FF8C00;
+        }
+        
+        /* ফুটার */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer h5 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer h5:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        /* রেস্পন্সিভ */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .team-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- নেভিগেশন বার -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cricket me-2"></i>GPL ২০২৫
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">হোম</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="teams.html">টিমসমূহ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fixtures.html">ফিক্সচার</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="points.html">পয়েন্ট টেবিল</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="results.html">রেজাল্ট</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">গ্যালারি</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">যোগাযোগ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- পেজ হিরো -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">GPL টিমসমূহ</h1>
+            <p class="hero-subtitle bn-text">গোটেরগ্রাম প্রিমিয়ার লীগের চারটি শক্তিশালী দল। প্রতিটি দলই তাদের নিজস্ব স্টাইল ও কৌশল নিয়ে মাঠে নামে।</p>
+        </div>
+    </section>
+
+    <!-- টিমসমূহ -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">আমাদের টিমসমূহ</h2>
+            
+            <!-- গোটেরগ্রাম রয়্যাল -->
+            <div class="team-card team-royal">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-center">
+                        <div class="team-logo-large">GR</div>
+                    </div>
+                    <div class="col-md-8">
+                        <h2>গোটেরগ্রাম রয়্যাল</h2>
+                        <p class="bn-text">শক্তিশালী ও ঐতিহ্যবাহী দল। রয়্যালস তাদের শৃঙ্খলাপূর্ণ খেলা এবং কৌশলগত দূরদর্শিতার জন্য পরিচিত। দলটির রয়েছে অভিজ্ঞ খেলোয়াড়দের একটি শক্তিশালী লাইনআপ।</p>
+                        
+                        <div class="team-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">৫</div>
+                                <div class="stat-label">ম্যাচ</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">২</div>
+                                <div class="stat-label">জয়</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">৩</div>
+                                <div class="stat-label">পরাজয়</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">৪</div>
+                                <div class="stat-label">পয়েন্ট</div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>ক্যাপ্টেন</h5>
+                                <p>মো: রফিকুল ইসলাম</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>কোচ</h5>
+                                <p>মো: জাহিদ হাসান</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- প্লেয়ার্স -->
+                <h4 class="mt-4 mb-3">মূল খেলোয়াড়রা</h4>
+                <div class="row">
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Player" class="player-photo">
+                            <h6>মো: রফিকুল</h6>
+                            <span class="player-role">ক্যাপ্টেন/ব্যাটসম্যান</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Player" class="player-photo">
+                            <h6>মো: সোহেল</h6>
+                            <span class="player-role">অল-রাউন্ডার</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Player" class="player-photo">
+                            <h6>মো: করিম</h6>
+                            <span class="player-role">ফাস্ট বোলার</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Player" class="player-photo">
+                            <h6>মো: সজল</h6>
+                            <span class="player-role">উইকেটকিপার</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- গোটেরগ্রাম রাইডার্স -->
+            <div class="team-card team-riders">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-center">
+                        <div class="team-logo-large">GRi</div>
+                    </div>
+                    <div class="col-md-8">
+                        <h2>গোটেরগ্রাম রাইডার্স</h2>
+                        <p class="bn-text">গতি আর আক্রমণাত্মক ব্যাটিংয়ের জন্য পরিচিত। রাইডার্স তাদের সাহসী খেলার স্টাইলের জন্য বিখ্যাত। গতবারের চ্যাম্পিয়ন দলটি এবারও শিরোপা ধরে রাখতে দৃঢ়প্রতিজ্ঞ।</p>
+                        
+                        <div class="team-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">৫</div>
+                                <div class="stat-label">ম্যাচ</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">৪</div>
+                                <div class="stat-label">জয়</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">১</div>
+                                <div class="stat-label">পরাজয়</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">৮</div>
+                                <div class="stat-label">পয়েন্ট</div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>ক্যাপ্টেন</h5>
+                                <p>মো: সাকিব আলম</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>কোচ</h5>
+                                <p>মো: আরিফুল ইসলাম</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- প্লেয়ার্স -->
+                <h4 class="mt-4 mb-3">মূল খেলোয়াড়রা</h4>
+                <div class="row">
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Player" class="player-photo">
+                            <h6>মো: সাকিব</h6>
+                            <span class="player-role">ক্যাপ্টেন/অল-রাউন্ডার</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/63.jpg" alt="Player" class="player-photo">
+                            <h6>মো: রিয়াদ</h6>
+                            <span class="player-role">টপ-অর্ডার ব্যাটসম্যান</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Player" class="player-photo">
+                            <h6>মো: নাঈম</h6>
+                            <span class="player-role">স্পিনার</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/28.jpg" alt="Player" class="player-photo">
+                            <h6>মো: ফাহিম</h6>
+                            <span class="player-role">মিডল-অর্ডার ব্যাটসম্যান</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- গোটেরগ্রাম হান্টার -->
+            <div class="team-card team-hunter">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-center">
+                        <div class="team-logo-large">GH</div>
+                    </div>
+                    <div class="col-md-8">
+                        <h2>গোটেরগ্রাম হান্টার</h2>
+                        <p class="bn-text">বোলিং আক্রমণে বিশেষজ্ঞ। হান্টার্স তাদের শক্তিশালী বোলিং লাইনআপের জন্য বিখ্যাত। দলটির বোলাররা যেকোনো ব্যাটিং লাইনআপকে চ্যালেঞ্জ করতে সক্ষম।</p>
+                        
+                        <div class="team-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">৫</div>
+                                <div class="stat-label">ম্যাচ</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">১</div>
+                                <div class="stat-label">জয়</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">৪</div>
+                                <div class="stat-label">পরাজয়</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">২</div>
+                                <div class="stat-label">পয়েন্ট</div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>ক্যاپ্টেন</h5>
+                                <p>মো: ফারুক হোসেন</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>কোচ</h5>
+                                <p>মো: রবিউল ইসলাম</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- প্লেয়ার্স -->
+                <h4 class="mt-4 mb-3">মূল খেলোয়াড়রা</h4>
+                <div class="row">
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/72.jpg" alt="Player" class="player-photo">
+                            <h6>মো: ফারুক</h6>
+                            <span class="player-role">ক্যাপ্টেন/ফাস্ট বোলার</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Player" class="player-photo">
+                            <h6>মো: রাজু</h6>
+                            <span class="player-role">ফাস্ট বোলার</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/66.jpg" alt="Player" class="player-photo">
+                            <h6>মো: সোহাগ</h6>
+                            <span class="player-role">স্পিনার</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/77.jpg" alt="Player" class="player-photo">
+                            <h6>মো: তানভীর</h6>
+                            <span class="player-role">ব্যাটসম্যান</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- গোটেরগ্রাম স্ট্রাইকার -->
+            <div class="team-card team-striker">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-center">
+                        <div class="team-logo-large">GS</div>
+                    </div>
+                    <div class="col-md-8">
+                        <h2>গোটেরগ্রাম স্ট্রাইকার</h2>
+                        <p class="bn-text">স্ট্রাইক পাওয়ারে ম্যাচের গতি পাল্টে দেয়। স্ট্রাইকার্স তাদের আক্রমণাত্মক ব্যাটিং এবং ফিল্ডিংয়ের জন্য পরিচিত। দলটি যেকোনো পরিস্থিতিতে জয়ের জন্য লড়াই করে।</p>
+                        
+                        <div class="team-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">৫</div>
+                                <div class="stat-label">ম্যাচ</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">৩</div>
+                                <div class="stat-label">জয়</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">২</div>
+                                <div class="stat-label">পরাজয়</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">৬</div>
+                                <div class="stat-label">পয়েন্ট</div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>ক্যাপ্টেন</h5>
+                                <p>মো: ইমরান হোসেন</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>কোচ</h5>
+                                <p>মো: শফিকুল ইসলাম</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- প্লেয়ার্স -->
+                <h4 class="mt-4 mb-3">মূল খেলোয়াড়রা</h4>
+                <div class="row">
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/51.jpg" alt="Player" class="player-photo">
+                            <h6>মো: ইমরান</h6>
+                            <span class="player-role">ক্যাপ্টেন/ব্যাটসম্যান</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Player" class="player-photo">
+                            <h6>মো: রনি</h6>
+                            <span class="player-role">অল-রাউন্ডার</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/39.jpg" alt="Player" class="player-photo">
+                            <h6>মো: সুমন</h6>
+                            <span class="player-role">স্পিনার</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="player-card">
+                            <img src="https://randomuser.me/api/portraits/men/62.jpg" alt="Player" class="player-photo">
+                            <h6>মো: রুবেল</h6>
+                            <span class="player-role">ফাস্ট বোলার</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>গোটেরগ্রাম প্রিমিয়ার লীগ</h5>
+                    <p class="bn-text">গ্রামীণ ক্রিকেটের উন্নয়ন এবং স্থানীয় প্রতিভা বিকাশের লক্ষ্যে কাজ করে যাচ্ছে GPL। আমাদের সাথে যুক্ত হোন।</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>দ্রুত লিংক</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-light">হোম</a></li>
+                        <li><a href="teams.html" class="text-light">টিমসমূহ</a></li>
+                        <li><a href="fixtures.html" class="text-light">ফিক্সচার</a></li>
+                        <li><a href="points.html" class="text-light">পয়েন্ট টেবিল</a></li>
+                        <li><a href="results.html" class="text-light">রেজাল্ট</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>যোগাযোগ</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>গোটেরগ্রাম, বালাউট-৩১৯০, জকিগঞ্জ, সিলেট</p>
+                    <p><i class="fas fa-phone me-2"></i>+৮৮০১৯৬৭৮৬২৩৯৯৯</p>
+                    <p><i class="fas fa-envelope me-2"></i>info@gpl-bd.com</p>
+                </div>
+            </div>
+            <hr class="mt-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center pt-3">
+                <p class="mb-0">© ২০২৫ গোটেরগ্রাম প্রিমিয়ার লীগ। সকল অধিকার সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

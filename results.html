@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রেজাল্টস - Gotergram Premier League</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #ffcc00;
+            --accent-color: #e63946;
+            --light-bg: #f8fff8;
+            --dark-text: #222;
+        }
+        
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        /* বাংলা ফন্ট অপ্টিমাইজেশন */
+        .bn-text {
+            line-height: 1.8;
+        }
+        
+        /* নেভিগেশন বার */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            margin: 0 8px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+        
+        /* পেজ হিরো */
+        .page-hero {
+            background: linear-gradient(rgba(26, 93, 26, 0.8), rgba(26, 93, 26, 0.9)), url('https://images.unsplash.com/photo-1592913409969-3bb6b4ff5c48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        /* সেকশন স্টাইল */
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 3px;
+            background: var(--secondary-color);
+            bottom: -10px;
+            left: 15%;
+        }
+        
+        /* ম্যাচ রেজাল্ট কার্ড */
+        .result-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: transform 0.3s;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .match-date {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .team-logo {
+            width: 60px;
+            height: 60px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .score {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .winning-score {
+            color: #28a745;
+            font-weight: 700;
+        }
+        
+        .losing-score {
+            color: #dc3545;
+        }
+        
+        .result-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .win-badge {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .loss-badge {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* প্লেয়ার অফ দ্য ম্যাচ */
+        .potm-card {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            border: 2px solid #ffcc00;
+        }
+        
+        .potm-badge {
+            background: #ffcc00;
+            color: #333;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .player-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 10px;
+            border: 3px solid #ffcc00;
+        }
+        
+        /* ম্যাচ হাইলাইটস */
+        .highlights {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .highlight-item:hover {
+            background: #e9ecef;
+        }
+        
+        .highlight-icon {
+            width: 30px;
+            height: 30px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        /* ফিল্টার বাটন */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid var(--primary-color);
+            background: white;
+            color: var(--primary-color);
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        /* ফুটার */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer h5 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer h5:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        /* রেস্পন্সিভ */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .team-logo {
+                width: 50px;
+                height: 50px;
+                font-size: 1rem;
+            }
+            
+            .score {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- নেভিগেশন বার -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cricket me-2"></i>GPL ২০২৫
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">হোম</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="teams.html">টিমসমূহ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fixtures.html">ফিক্সচার</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="points.html">পয়েন্ট টেবিল</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="results.html">রেজাল্ট</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">গ্যালারি</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">যোগাযোগ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- পেজ হিরো -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">GPL ম্যাচ রেজাল্টস</h1>
+            <p class="hero-subtitle bn-text">গোটেরগ্রাম প্রিমিয়ার লীগ ২০২৫ এর সকল ম্যাচের ফলাফল, স্কোরকার্ড এবং হাইলাইটস দেখুন।</p>
+        </div>
+    </section>
+
+    <!-- রেজাল্টস সেকশন -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">ম্যাচ রেজাল্টস</h2>
+            
+            <!-- ফিল্টার বাটন -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">সকল ম্যাচ</button>
+                <button class="filter-btn" data-filter="recent">সাম্প্রতিক ম্যাচ</button>
+                <button class="filter-btn" data-filter="final">ফাইনাল ম্যাচ</button>
+                <button class="filter-btn" data-filter="group">গ্রুপ স্টেজ</button>
+            </div>
+            
+            <!-- ম্যাচ ১ -->
+            <div class="result-card" data-match="recent">
+                <div class="match-date">১৫ ডিসেম্বর, ২০২৪</div>
+                
+                <div class="row align-items-center">
+                    <div class="col-md-5">
+                        <div class="row align-items-center">
+                            <div class="col-4 text-end">
+                                <div class="team-logo d-inline-flex">GR</div>
+                                <h6 class="mt-2">গোটেরগ্রাম রয়্যাল</h6>
+                            </div>
+                            <div class="col-4 text-center">
+                                <h3 class="text-primary">VS</h3>
+                            </div>
+                            <div class="col-4 text-start">
+                                <div class="team-logo d-inline-flex">GS</div>
+                                <h6 class="mt-2">গোটেরগ্রাম স্ট্রাইকার</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="score">
+                            <span class="losing-score">১৫৮/৬ (২০ ওভার)</span><br>
+                            <span class="winning-score">১৬২/৪ (১৮.২ ওভার)</span>
+                        </div>
+                        <div class="mt-2">
+                            <span class="result-badge win-badge">স্ট্রাইকার জয়ী ৬ উইকেটে</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <p><i class="fas fa-map-marker-alt me-2"></i>গোটেরগ্রাম পশ্চিম মাঠ</p>
+                        <button class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="collapse" data-bs-target="#match1Details">বিস্তারিত দেখুন</button>
+                    </div>
+                </div>
+                
+                <!-- ম্যাচ ডিটেইলস -->
+                <div class="collapse mt-4" id="match1Details">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>গোটেরগ্রাম রয়্যাল ইনিংস</h6>
+                            <ul class="bn-text">
+                                <li>মো: রফিকুল - ৬৭ রান (৪৫ বল)</li>
+                                <li>মো: সোহেল - ৩৪ রান (২৮ বল)</li>
+                                <li>সেরা বোলার: মো: রুবেল - ৩/২৮ (৪ ওভার)</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>গোটেরগ্রাম স্ট্রাইকার ইনিংস</h6>
+                            <ul class="bn-text">
+                                <li>মো: ইমরান - ৭৮ রান (৫২ বল)</li>
+                                <li>মো: রনি - ৪৫ রান (৩০ বল)</li>
+                                <li>সেরা বোলার: মো: করিম - ২/৩২ (৪ ওভার)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- প্লেয়ার অফ দ্য ম্যাচ -->
+                    <div class="potm-card">
+                        <span class="potm-badge">প্লেয়ার অফ দ্য ম্যাচ</span>
+                        <img src="https://randomuser.me/api/portraits/men/51.jpg" alt="Player" class="player-photo">
+                        <h5>মো: ইমরান হোসেন</h5>
+                        <p class="mb-1">৭৮ রান (৫২ বল) - ৬ বাউন্ডারি, ৩ সিক্স</p>
+                        <small>গোটেরগ্রাম স্ট্রাইকার</small>
+                    </div>
+                    
+                    <!-- ম্যাচ হাইলাইটস -->
+                    <div class="highlights">
+                        <h6><i class="fas fa-star me-2"></i>ম্যাচ হাইলাইটস</h6>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div>
+                                <strong>ইমরানের দ্রুত অর্ধশতক:</strong> মাত্র ৩০ বলে ৫০ রান完成
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-bowling-ball"></i>
+                            </div>
+                            <div>
+                                <strong>রুবেলের গুরুত্বপূর্ণ উইকেট:</strong> ১৫তম ওভারে রফিকুলের উইকেট
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div>
+                                <strong>ম্যাচের টার্নিং পয়েন্ট:</strong> ১৪তম ওভারে ২০ রান
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ম্যাচ ২ -->
+            <div class="result-card" data-match="recent">
+                <div class="match-date">১০ ডিসেম্বর, ২০২৪</div>
+                
+                <div class="row align-items-center">
+                    <div class="col-md-5">
+                        <div class="row align-items-center">
+                            <div class="col-4 text-end">
+                                <div class="team-logo d-inline-flex">GRi</div>
+                                <h6 class="mt-2">গোটেরগ্রাম রাইডার্স</h6>
+                            </div>
+                            <div class="col-4 text-center">
+                                <h3 class="text-primary">VS</h3>
+                            </div>
+                            <div class="col-4 text-start">
+                                <div class="team-logo d-inline-flex">GH</div>
+                                <h6 class="mt-2">গোটেরগ্রাম হান্টার</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="score">
+                            <span class="winning-score">১৮৫/৫ (২০ ওভার)</span><br>
+                            <span class="losing-score">১৩২/৯ (২০ ওভার)</span>
+                        </div>
+                        <div class="mt-2">
+                            <span class="result-badge win-badge">রাইডার্স জয়ী ৫৩ রানে</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <p><i class="fas fa-map-marker-alt me-2"></i>গোটেরগ্রাম পশ্চিম মাঠ</p>
+                        <button class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="collapse" data-bs-target="#match2Details">বিস্তারিত দেখুন</button>
+                    </div>
+                </div>
+                
+                <!-- ম্যাচ ডিটেইলস -->
+                <div class="collapse mt-4" id="match2Details">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>গোটেরগ্রাম রাইডার্স ইনিংস</h6>
+                            <ul class="bn-text">
+                                <li>মো: সাকিব - ৮৯ রান (৫৪ বল)</li>
+                                <li>মো: রিয়াদ - ৪৭ রান (৩২ বল)</li>
+                                <li>সেরা বোলার: মো: ফারুক - ২/৩৫ (৪ ওভার)</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>গোটেরগ্রাম হান্টার ইনিংস</h6>
+                            <ul class="bn-text">
+                                <li>মো: ফারুক - ৪২ রান (৩৮ বল)</li>
+                                <li>মো: রাজু - ২৮ রান (২৫ বল)</li>
+                                <li>সেরা বোলার: মো: নাঈম - ৪/২২ (৪ ওভার)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- প্লেয়ার অফ দ্য ম্যাচ -->
+                    <div class="potm-card">
+                        <span class="potm-badge">প্লেয়ার অফ দ্য ম্যাচ</span>
+                        <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Player" class="player-photo">
+                        <h5>মো: সাকিব আলম</h5>
+                        <p class="mb-1">৮৯ রান (৫৪ বল) - ৮ বাউন্ডারি, ৪ সিক্স</p>
+                        <small>গোটেরগ্রাম রাইডার্স</small>
+                    </div>
+                    
+                    <!-- ম্যাচ হাইলাইটস -->
+                    <div class="highlights">
+                        <h6><i class="fas fa-star me-2"></i>ম্যাচ হাইলাইটস</h6>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div>
+                                <strong>সাকিবের explosive ব্যাটিং:</strong> ৫৪ বলে ৮৯ রানের দারুণ ইনিংস
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-bowling-ball"></i>
+                            </div>
+                            <div>
+                                <strong>নাঈমের বোলিং স্পেল:</strong> ৪ উইকেটে হান্টার্সকে ধ্বংস
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div>
+                                <strong>পার্টনারশিপ:</strong> সাকিব-রিয়াদ ১১২ রানের জুটি
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ম্যাচ ৩ -->
+            <div class="result-card" data-match="final">
+                <div class="match-date">৫ ডিসেম্বর, ২০২৪</div>
+                
+                <div class="row align-items-center">
+                    <div class="col-md-5">
+                        <div class="row align-items-center">
+                            <div class="col-4 text-end">
+                                <div class="team-logo d-inline-flex">GRi</div>
+                                <h6 class="mt-2">গোটেরগ্রাম রাইডার্স</h6>
+                            </div>
+                            <div class="col-4 text-center">
+                                <h3 class="text-primary">VS</h3>
+                            </div>
+                            <div class="col-4 text-start">
+                                <div class="team-logo d-inline-flex">GS</div>
+                                <h6 class="mt-2">গোটেরগ্রাম স্ট্রাইকার</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="score">
+                            <span class="winning-score">১৭৬/৭ (২০ ওভার)</span><br>
+                            <span class="losing-score">১৫৪/৮ (২০ ওভার)</span>
+                        </div>
+                        <div class="mt-2">
+                            <span class="result-badge win-badge">রাইডার্স জয়ী ২২ রানে</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <p><i class="fas fa-map-marker-alt me-2"></i>গোটেরগ্রাম পশ্চিম মাঠ</p>
+                        <button class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="collapse" data-bs-target="#match3Details">বিস্তারিত দেখুন</button>
+                    </div>
+                </div>
+                
+                <!-- ম্যাচ ডিটেইলস -->
+                <div class="collapse mt-4" id="match3Details">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>গোটেরগ্রাম রাইডার্স ইনিংস</h6>
+                            <ul class="bn-text">
+                                <li>মো: রিয়াদ - ৬৫ রান (৪২ বল)</li>
+                                <li>মো: ফাহিম - ৪৪ রান (৩১ বল)</li>
+                                <li>সেরা বোলার: মো: সুমন - ৩/৩০ (৪ ওভার)</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>গোটেরগ্রাম স্ট্রাইকার ইনিংস</h6>
+                            <ul class="bn-text">
+                                <li>মো: ইমরান - ৫৫ রান (৪০ বল)</li>
+                                <li>মো: রনি - ৩৮ রান (৩২ বল)</li>
+                                <li>সেরা বোলার: মো: নাঈম - ২/২৫ (৪ ওভার)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- প্লেয়ার অফ দ্য ম্যাচ -->
+                    <div class="potm-card">
+                        <span class="potm-badge">প্লেয়ার অফ দ্য ম্যাচ</span>
+                        <img src="https://randomuser.me/api/portraits/men/63.jpg" alt="Player" class="player-photo">
+                        <h5>মো: রিয়াদ</h5>
+                        <p class="mb-1">৬৫ রান (৪২ বল) - ৫ বাউন্ডারি, ৩ সিক্স</p>
+                        <small>গোটেরগ্রাম রাইডার্স</small>
+                    </div>
+                    
+                    <!-- ম্যাচ হাইলাইটস -->
+                    <div class="highlights">
+                        <h6><i class="fas fa-star me-2"></i>ম্যাচ হাইলাইটস</h6>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div>
+                                <strong>ফাইনাল ম্যাচ:</strong> GPL ২০২৪ এর চ্যাম্পিয়ন নির্ধারণ
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div>
+                                <strong>রিয়াদের গুরুত্বপূর্ণ ইনিংস:</strong> ফাইনালে ৬৫ রান
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-bowling-ball"></i>
+                            </div>
+                            <div>
+                                <strong>মৃত্যু overs:</strong> রাইডার্সের বোলারদের দারুণ performance
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- লোড মোর বাটন -->
+            <div class="text-center mt-4">
+                <button class="btn btn-primary">আরও ম্যাচ ফলাফল দেখুন</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>গোটেরগ্রাম প্রিমিয়ার লীগ</h5>
+                    <p class="bn-text">গ্রামীণ ক্রিকেটের উন্নয়ন এবং স্থানীয় প্রতিভা বিকাশের লক্ষ্যে কাজ করে যাচ্ছে GPL। আমাদের সাথে যুক্ত হোন।</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>দ্রুত লিংক</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-light">হোম</a></li>
+                        <li><a href="teams.html" class="text-light">টিমসমূহ</a></li>
+                        <li><a href="fixtures.html" class="text-light">ফিক্সচার</a></li>
+                        <li><a href="points.html" class="text-light">পয়েন্ট টেবিল</a></li>
+                        <li><a href="results.html" class="text-light">রেজাল্ট</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>যোগাযোগ</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>গোটেরগ্রাম, বালাউট-৩১৯০, জকিগঞ্জ, সিলেট</p>
+                    <p><i class="fas fa-phone me-2"></i>+৮৮০১৯৬৭৮৬২৩৯৯৯</p>
+                    <p><i class="fas fa-envelope me-2"></i>info@gpl-bd.com</p>
+                </div>
+            </div>
+            <hr class="mt-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center pt-3">
+                <p class="mb-0">© ২০২৫ গোটেরগ্রাম প্রিমিয়ার লীগ। সকল অধিকার সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // ফিল্টার বাটন ফাংশনালিটি
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const resultCards = document.querySelectorAll('.result-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // সক্রিয় বাটন আপডেট
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // কার্ড ফিল্টার
+                    resultCards.forEach(card => {
+                        if (filter === 'all') {
+                            card.style.display = 'block';
+                        } else {
+                            if (card.getAttribute('data-match') === filter) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // বিস্তারিত দেখুন বাটন
+            const detailButtons = document.querySelectorAll('[data-bs-toggle="collapse"]');
+            detailButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const target = this.getAttribute('data-bs-target');
+                    const collapseElement = document.querySelector(target);
+                    
+                    if (collapseElement.classList.contains('show')) {
+                        this.textContent = 'বিস্তারিত দেখুন';
+                    } else {
+                        this.textContent = 'বিস্তারিত লুকান';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

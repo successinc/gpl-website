@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পয়েন্ট টেবিল - Gotergram Premier League</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #ffcc00;
+            --accent-color: #e63946;
+            --light-bg: #f8fff8;
+            --dark-text: #222;
+        }
+        
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        /* বাংলা ফন্ট অপ্টিমাইজেশন */
+        .bn-text {
+            line-height: 1.8;
+        }
+        
+        /* নেভিগেশন বার */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            margin: 0 8px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+        
+        /* পেজ হিরো */
+        .page-hero {
+            background: linear-gradient(rgba(26, 93, 26, 0.8), rgba(26, 93, 26, 0.9)), url('https://images.unsplash.com/photo-1592913409969-3bb6b4ff5c48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        /* সেকশন স্টাইল */
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 3px;
+            background: var(--secondary-color);
+            bottom: -10px;
+            left: 15%;
+        }
+        
+        /* পয়েন্ট টেবিল স্টাইল */
+        .points-table {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .table thead {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .table th {
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            border: none;
+        }
+        
+        .table td {
+            padding: 15px;
+            text-align: center;
+            vertical-align: middle;
+            border-color: #eee;
+        }
+        
+        .team-cell {
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+        
+        .team-logo {
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        /* অবস্থান স্টাইল */
+        .position-1 {
+            background: linear-gradient(135deg, #FFD700, #FFEC8B) !important;
+            font-weight: bold;
+        }
+        
+        .position-2 {
+            background: linear-gradient(135deg, #C0C0C0, #E8E8E8) !important;
+            font-weight: bold;
+        }
+        
+        .position-3 {
+            background: linear-gradient(135deg, #CD7F32, #E9B37A) !important;
+            font-weight: bold;
+        }
+        
+        .position-4 {
+            background: #f8f9fa;
+        }
+        
+        .position-badge {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* স্ট্যাটাস ইন্ডিকেটর */
+        .form-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .form-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .win {
+            background: #28a745;
+        }
+        
+        .loss {
+            background: #dc3545;
+        }
+        
+        .nr {
+            background: #6c757d;
+        }
+        
+        /* টিম স্ট্যাটস কার্ড */
+        .team-stats-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-top: 4px solid var(--primary-color);
+            transition: transform 0.3s;
+        }
+        
+        .team-stats-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* ফুটার */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer h5 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer h5:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        /* রেস্পন্সিভ */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .table-responsive {
+                font-size: 0.9rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .team-cell {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .team-logo {
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- নেভিগেশন বার -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cricket me-2"></i>GPL ২০২৫
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">হোম</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="teams.html">টিমসমূহ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fixtures.html">ফিক্সচার</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="points.html">পয়েন্ট টেবিল</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="results.html">রেজাল্ট</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">গ্যালারি</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">যোগাযোগ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- পেজ হিরো -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">GPL পয়েন্ট টেবিল</h1>
+            <p class="hero-subtitle bn-text">গোটেরগ্রাম প্রিমিয়ার লীগ ২০২৫ এর লাইভ পয়েন্ট টেবিল। টিমগুলোর অবস্থান, ম্যাচ, জয়-পরাজয় এবং নেট রান রেট দেখুন।</p>
+        </div>
+    </section>
+
+    <!-- পয়েন্ট টেবিল সেকশন -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">লীগ পয়েন্ট টেবিল</h2>
+            
+            <div class="points-table">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th width="60">অব.</th>
+                                <th>টিম</th>
+                                <th>খেলা</th>
+                                <th>জয়</th>
+                                <th>পরাজয়</th>
+                                <th>ফলহীন</th>
+                                <th>পয়েন্ট</th>
+                                <th>নেট রান রেট</th>
+                                <th>সাম্প্রতিক ফর্ম</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="position-1">
+                                <td>
+                                    <span class="position-badge">১</span>
+                                </td>
+                                <td>
+                                    <div class="team-cell">
+                                        <div class="team-logo">GRi</div>
+                                        <div>
+                                            <strong>গোটেরগ্রাম রাইডার্স</strong>
+                                            <div class="small text-muted">চ্যাম্পিয়ন</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>৫</td>
+                                <td>৪</td>
+                                <td>১</td>
+                                <td>০</td>
+                                <td><strong>৮</strong></td>
+                                <td>+১.২৫</td>
+                                <td>
+                                    <div class="form-indicator">
+                                        <span class="form-dot win" title="জয়"></span>
+                                        <span class="form-dot win" title="জয়"></span>
+                                        <span class="form-dot loss" title="পরাজয়"></span>
+                                        <span class="form-dot win" title="জয়"></span>
+                                        <span class="form-dot win" title="জয়"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="position-2">
+                                <td>
+                                    <span class="position-badge">২</span>
+                                </td>
+                                <td>
+                                    <div class="team-cell">
+                                        <div class="team-logo">GS</div>
+                                        <div>
+                                            <strong>গোটেরগ্রাম স্ট্রাইকার</strong>
+                                            <div class="small text-muted">রানার-আপ</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>৫</td>
+                                <td>৩</td>
+                                <td>২</td>
+                                <td>০</td>
+                                <td><strong>৬</strong></td>
+                                <td>+০.৮৯</td>
+                                <td>
+                                    <div class="form-indicator">
+                                        <span class="form-dot win" title="জয়"></span>
+                                        <span class="form-dot loss" title="পরাজয়"></span>
+                                        <span class="form-dot win" title="জয়"></span>
+                                        <span class="form-dot loss" title="পরাজয়"></span>
+                                        <span class="form-dot win" title="জয়"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="position-3">
+                                <td>
+                                    <span class="position-badge">৩</span>
+                                </td>
+                                <td>
+                                    <div class="team-cell">
+                                        <div class="team-logo">GR</div>
+                                        <div>
+                                            <strong>গোটেরগ্রাম রয়্যাল</strong>
+                                            <div class="small text-muted">তৃতীয় স্থান</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>৫</td>
+                                <td>২</td>
+                                <td>৩</td>
+                                <td>০</td>
+                                <td><strong>৪</strong></td>
+                                <td>-০.৪৫</td>
+                                <td>
+                                    <div class="form-indicator">
+                                        <span class="form-dot loss" title="পরাজয়"></span>
+                                        <span class="form-dot win" title="জয়"></span>
+                                        <span class="form-dot loss" title="পরাজয়"></span>
+                                        <span class="form-dot win" title="জয়"></span>
+                                        <span class="form-dot loss" title="পরাজয়"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="position-4">
+                                <td>
+                                    <span class="position-badge">৪</span>
+                                </td>
+                                <td>
+                                    <div class="team-cell">
+                                        <div class="team-logo">GH</div>
+                                        <div>
+                                            <strong>গোটেরগ্রাম হান্টার</strong>
+                                            <div class="small text-muted">চতুর্থ স্থান</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>৫</td>
+                                <td>১</td>
+                                <td>৪</td>
+                                <td>０</td>
+                                <td><strong>২</strong></td>
+                                <td>-১.৬২</td>
+                                <td>
+                                    <div class="form-indicator">
+                                        <span class="form-dot loss" title="পরাজয়"></span>
+                                        <span class="form-dot loss" title="পরাজয়"></span>
+                                        <span class="form-dot win" title="জয়"></span>
+                                        <span class="form-dot loss" title="পরাজয়"></span>
+                                        <span class="form-dot loss" title="পরাজয়"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- টিম স্ট্যাটস -->
+            <h3 class="text-center section-title mt-5">টিম পরিসংখ্যান</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="team-stats-card">
+                        <h4>গোটেরগ্রাম রাইডার্স</h4>
+                        <p class="bn-text">লীগের শীর্ষস্থানীয় দল, শক্তিশালী ব্যাটিং লাইনআপ নিয়ে</p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-value">৪</span>
+                                <span class="stat-label">জয়</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">১</span>
+                                <span class="stat-label">পরাজয়</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">+১.২৫</span>
+                                <span class="stat-label">নেট রান রেট</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">৮</span>
+                                <span class="stat-label">পয়েন্ট</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <h6>শীর্ষ পারফরমার্স:</h6>
+                            <ul class="bn-text">
+                                <li>সর্বোচ্চ রান: মো: সাকিব (২১৫ রান)</li>
+                                <li>সর্বোচ্চ উইকেট: মো: নাঈম (৯ উইকেট)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="team-stats-card">
+                        <h4>গোটেরগ্রাম স্ট্রাইকার</h4>
+                        <p class="bn-text">দ্বিতীয় স্থানে থাকা শক্তিশালী দল, সামঞ্জস্যপূর্ণ পারফরম্যান্স</p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-value">৩</span>
+                                <span class="stat-label">জয়</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">২</span>
+                                <span class="stat-label">পরাজয়</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">+০.৮৯</span>
+                                <span class="stat-label">নেট রান রেট</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">৬</span>
+                                <span class="stat-label">পয়েন্ট</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <h6>শীর্ষ পারফরমার্স:</h6>
+                            <ul class="bn-text">
+                                <li>সর্বোচ্চ রান: মো: ইমরান (১৮৯ রান)</li>
+                                <li>সর্বোচ্চ উইকেট: মো: রুবেল (৭ উইকেট)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="team-stats-card">
+                        <h4>গোটেরগ্রাম রয়্যাল</h4>
+                        <p class="bn-text">তৃতীয় স্থানে থাকা দল, উন্নতির প্রচেষ্টা চলছে</p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-value">২</span>
+                                <span class="stat-label">জয়</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">৩</span>
+                                <span class="stat-label">পরাজয়</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">-০.৪৫</span>
+                                <span class="stat-label">নেট রান রেট</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">৪</span>
+                                <span class="stat-label">পয়েন্ট</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <h6>শীর্ষ পারফরমার্স:</h6>
+                            <ul class="bn-text">
+                                <li>সর্বোচ্চ রান: মো: রফিকুল (১৬৭ রান)</li>
+                                <li>সর্বোচ্চ উইকেট: মো: করিম (৮ উইকেট)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="team-stats-card">
+                        <h4>গোটেরগ্রাম হান্টার</h4>
+                        <p class="bn-text">চতুর্থ স্থানে থাকা দল, বোলিং শক্তিশালী কিন্তু ব্যাটিং দুর্বল</p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-value">১</span>
+                                <span class="stat-label">জয়</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">৪</span>
+                                <span class="stat-label">পরাজয়</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">-১.৬২</span>
+                                <span class="stat-label">নেট রান রেট</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">২</span>
+                                <span class="stat-label">পয়েন্ট</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <h6>শীর্ষ পারফরমার্স:</h6>
+                            <ul class="bn-text">
+                                <li>সর্বোচ্চ রান: মো: ফারুক (১৩৪ রান)</li>
+                                <li>সর্বোচ্চ উইকেট: মো: ফারুক (১০ উইকেট)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- তথ্য ও ব্যাখ্যা -->
+            <div class="row mt-5">
+                <div class="col-md-8 offset-md-2">
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-info-circle me-2"></i>পয়েন্ট টেবিল সম্পর্কে তথ্য</h5>
+                        <ul class="bn-text mb-0">
+                            <li>প্রতিটি জয়ের জন্য ২ পয়েন্ট প্রদান করা হয়</li>
+                            <li>পরাজয় বা ফলাফল না হলে ০ পয়েন্ট</li>
+                            <li>নেট রান রেট = (মোট করা রান / মোট বল) - (মোট খরচ রান / মোট বল বোল্ড)</li>
+                            <li>পয়েন্ট সমান হলে নেট রান রেটের ভিত্তিতে র‍্যাঙ্কিং নির্ধারণ</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>গোটেরগ্রাম প্রিমিয়ার লীগ</h5>
+                    <p class="bn-text">গ্রামীণ ক্রিকেটের উন্নয়ন এবং স্থানীয় প্রতিভা বিকাশের লক্ষ্যে কাজ করে যাচ্ছে GPL। আমাদের সাথে যুক্ত হোন।</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>দ্রুত লিংক</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-light">হোম</a></li>
+                        <li><a href="teams.html" class="text-light">টিমসমূহ</a></li>
+                        <li><a href="fixtures.html" class="text-light">ফিক্সচার</a></li>
+                        <li><a href="points.html" class="text-light">পয়েন্ট টেবিল</a></li>
+                        <li><a href="results.html" class="text-light">রেজাল্ট</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>যোগাযোগ</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>গোটেরগ্রাম, বালাউট-৩১৯০, জকিগঞ্জ, সিলেট</p>
+                    <p><i class="fas fa-phone me-2"></i>+৮৮০১৯৬৭৮৬২৩৯৯৯</p>
+                    <p><i class="fas fa-envelope me-2"></i>info@gpl-bd.com</p>
+                </div>
+            </div>
+            <hr class="mt-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center pt-3">
+                <p class="mb-0">© ২০২৫ গোটেরগ্রাম প্রিমিয়ার লীগ। সকল অধিকার সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // টেবিল রো ক্লিক ইভেন্ট
+        document.addEventListener('DOMContentLoaded', function() {
+            var tableRows = document.querySelectorAll('.table tbody tr');
+            tableRows.forEach(function(row) {
+                row.addEventListener('click', function() {
+                    var teamName = this.querySelector('.team-cell strong').textContent;
+                    alert(teamName + ' এর বিস্তারিত তথ্য দেখানো হবে');
+                    // এখানে টিম ডিটেইল পেজে রিডাইরেক্ট করতে পারেন
+                });
+            });
+            
+            // ফর্ম ইন্ডিকেটরে টুলটিপ যোগ
+            var formDots = document.querySelectorAll('.form-dot');
+            formDots.forEach(function(dot) {
+                dot.addEventListener('mouseover', function() {
+                    var title = this.getAttribute('title');
+                    // টুলটিপ দেখানোর লজিক এখানে যোগ করুন
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gotergram Premier League - হোম</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #ffcc00;
+            --accent-color: #e63946;
+            --light-bg: #f8fff8;
+            --dark-text: #222;
+        }
+        
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        /* বাংলা ফন্ট অপ্টিমাইজেশন */
+        .bn-text {
+            line-height: 1.8;
+        }
+        
+        /* নেভিগেশন বার */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            margin: 0 8px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+        
+        /* হিরো সেকশন */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* সেকশন স্টাইল */
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 3px;
+            background: var(--secondary-color);
+            bottom: -10px;
+            left: 15%;
+        }
+        
+        /* কার্ড স্টাইল */
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px 20px;
+            text-align: center;
+            height: 100%;
+            transition: transform 0.3s;
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        /* আপকামিং ম্যাচ */
+        .match-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .team-logo {
+            width: 60px;
+            height: 60px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        /* ফুটার */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer h5 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer h5:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        /* গুরুত্বপূর্ণ নোটিশ */
+        .notice-box {
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+            color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        /* ভেনু তথ্য */
+        .venue-info {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-top: 30px;
+        }
+        
+        /* রেস্পন্সিভ */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- নেভিগেশন বার -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-cricket me-2"></i>GPL ২০২৫
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">হোম</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="teams.html">টিমসমূহ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fixtures.html">ফিক্সচার</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="points.html">পয়েন্ট টেবিল</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="results.html">রেজাল্ট</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">গ্যালারি</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">যোগাযোগ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- হিরো সেকশন -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">গোটেরগ্রাম প্রিমিয়ার লীগ ২০২৫</h1>
+            <p class="hero-subtitle bn-text">ডিসেম্বরের শেষে শুরু হচ্ছে GPL ২০২৫! গোটেরগ্রাম পশ্চিম মাঠে অনুষ্ঠিত হবে সকল ম্যাচ। স্থানীয় প্রতিভাবান খেলোয়াড়দের নিয়ে আয়োজিত এই লীগে অংশ নিন এবং ক্রিকেটের রোমাঞ্চ উপভোগ করুন।</p>
+            <a href="#upcoming-matches" class="btn btn-warning btn-lg mt-3">আসন্ন ম্যাচ দেখুন</a>
+        </div>
+    </section>
+
+    <!-- গুরুত্বপূর্ণ নোটিশ -->
+    <section class="py-3">
+        <div class="container">
+            <div class="notice-box">
+                <i class="fas fa-bullhorn me-2"></i> GPL ২০২৫ ডিসেম্বরের শেষে শুরু হবে! সকল ম্যাচ গোটেরগ্রাম পশ্চিম মাঠে অনুষ্ঠিত হবে।
+            </div>
+        </div>
+    </section>
+
+    <!-- ফিচার সেকশন -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">কেন GPL এ অংশ নেবেন?</h2>
+            <div class="row mt-5">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h4>প্রতিযোগিতামূলক পরিবেশ</h4>
+                        <p class="bn-text">উচ্চমানের ক্রিকেট খেলার জন্য আদর্শ পরিবেশ। প্রতিটি ম্যাচে থাকে রোমাঞ্চকর প্রতিযোগিতা।</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>স্থানীয় প্রতিভা</h4>
+                        <p class="bn-text">আমাদের স্থানীয় মাঠে স্থানীয় খেলোয়াড়দের দক্ষতা দেখার সুযোগ। প্রতিভা খুঁজে বের করুন।</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>বিনোদন ও সম্প্রীতি</h4>
+                        <p class="bn-text">ক্রিকেটের মাধ্যমে তৈরি হোক বন্ধুত্ব ও সম্প্রীতি। উপভোগ করুন উৎসবমুখর পরিবেশ।</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ভেনু তথ্য -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center section-title">ম্যাচ ভেনু</h2>
+            <div class="venue-info">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4><i class="fas fa-map-marker-alt text-primary me-2"></i>ম্যাচের ভেনু</h4>
+                        <p class="bn-text">গোটেরগ্রাম পশ্চিম মাঠ</p>
+                        <p class="bn-text">ঠিকানা: গোটেরগ্রাম, বালাউট-৩১৯০, জকিগঞ্জ, সিলেট</p>
+                        
+                        <h4 class="mt-4"><i class="fas fa-phone text-primary me-2"></i>যোগাযোগ</h4>
+                        <p>+৮৮০১৯৬৭৮৬২৩৯৯৯</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4><i class="fas fa-info-circle text-primary me-2"></i>গুরুত্বপূর্ণ তথ্য</h4>
+                        <ul class="bn-text">
+                            <li>সমস্ত ম্যাচ গোটেরগ্রাম পশ্চিম মাঠে অনুষ্ঠিত হবে</li>
+                            <li>ডিসেম্বরের শেষে শুরু হবে GPL ২০২৫</li>
+                            <li>ম্যাচের সময়সূচী শীঘ্রই প্রকাশিত হবে</li>
+                            <li>দর্শকদের জন্য পর্যাপ্ত ব্যবস্থা থাকবে</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- আপকামিং ম্যাচ -->
+    <section class="py-5" id="upcoming-matches">
+        <div class="container">
+            <h2 class="text-center section-title">আসন্ন ম্যাচসমূহ</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="match-card">
+                        <div class="row align-items-center">
+                            <div class="col-md-3 text-center">
+                                <div class="team-logo mx-auto">GR</div>
+                                <h5 class="mt-2">গোটেরগ্রাম রয়্যাল</h5>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <h4 class="text-primary">VS</h4>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <div class="team-logo mx-auto">GRi</div>
+                                <h5 class="mt-2">গোটেরগ্রাম রাইডার্স</h5>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <p><i class="far fa-calendar me-2"></i>ডিসেম্বর ২০২৫ (তারিখ শীঘ্রই)</p>
+                                <p><i class="far fa-clock me-2"></i>সময় শীঘ্রই ঘোষণা করা হবে</p>
+                                <p><i class="fas fa-map-marker-alt me-2"></i>গোটেরগ্রাম পশ্চিম মাঠ</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="match-card">
+                        <div class="row align-items-center">
+                            <div class="col-md-3 text-center">
+                                <div class="team-logo mx-auto">GH</div>
+                                <h5 class="mt-2">গোটেরগ্রাম হান্টার</h5>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <h4 class="text-primary">VS</h4>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <div class="team-logo mx-auto">GS</div>
+                                <h5 class="mt-2">গোটেরগ্রাম স্ট্রাইকার</h5>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <p><i class="far fa-calendar me-2"></i>ডিসেম্বর ২০২৫ (তারিখ শীঘ্রই)</p>
+                                <p><i class="far fa-clock me-2"></i>সময় শীঘ্রই ঘোষণা করা হবে</p>
+                                <p><i class="fas fa-map-marker-alt me-2"></i>গোটেরগ্রাম পশ্চিম মাঠ</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <a href="fixtures.html" class="btn btn-primary">সম্পূর্ণ ফিক্সচার দেখুন</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- লেটেস্ট নিউজ -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center section-title">সাম্প্রতিক আপডেট</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">GPL ২০২৫ এর প্রস্তুতি শুরু</h5>
+                            <p class="card-text bn-text">গোটেরগ্রাম প্রিমিয়ার লীগ ২০২৫ এর প্রস্তুতি শুরু হয়ে গেছে। ডিসেম্বরের শেষে গোটেরগ্রাম পশ্চিম মাঠে শুরু হবে এই টুর্নামেন্ট।</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">বিস্তারিত পড়ুন</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">প্রকাশিত: ২০ নভেম্বর, ২০২৪</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">নতুন ট্যালেন্ট স্কাউটিং</h5>
+                            <p class="card-text bn-text">এবারের টুর্নামেন্টে নতুন প্রতিভা খুঁজে বের করার জন্য বিশেষ স্কাউটিং প্রোগ্রাম চালু করা হয়েছে। আগ্রহীরা যোগাযোগ করতে পারেন।</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">বিস্তারিত পড়ুন</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">প্রকাশিত: ১৫ নভেম্বর, ২০২৪</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>গোটেরগ্রাম প্রিমিয়ার লীগ</h5>
+                    <p class="bn-text">গ্রামীণ ক্রিকেটের উন্নয়ন এবং স্থানীয় প্রতিভা বিকাশের লক্ষ্যে কাজ করে যাচ্ছে GPL। আমাদের সাথে যুক্ত হোন।</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>দ্রুত লিংক</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="teams.html" class="text-light">টিমসমূহ</a></li>
+                        <li><a href="fixtures.html" class="text-light">ফিক্সচার</a></li>
+                        <li><a href="points.html" class="text-light">পয়েন্ট টেবিল</a></li>
+                        <li><a href="results.html" class="text-light">রেজাল্ট</a></li>
+                        <li><a href="gallery.html" class="text-light">গ্যালারি</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>যোগাযোগ</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>গোটেরগ্রাম, বালাউট-৩১৯০, জকিগঞ্জ, সিলেট</p>
+                    <p><i class="fas fa-phone me-2"></i>+৮৮০১৯৬৭৮৬২৩৯৯৯</p>
+                    <p><i class="fas fa-envelope me-2"></i>info@gpl-bd.com</p>
+                </div>
+            </div>
+            <hr class="mt-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center pt-3">
+                <p class="mb-0">© ২০২৫ গোটেরগ্রাম প্রিমিয়ার লীগ। সকল অধিকার সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

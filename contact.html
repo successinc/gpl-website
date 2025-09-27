@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>যোগাযোগ - Gotergram Premier League</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #ffcc00;
+            --accent-color: #e63946;
+            --light-bg: #f8fff8;
+            --dark-text: #222;
+        }
+        
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        /* বাংলা ফন্ট অপ্টিমাইজেশন */
+        .bn-text {
+            line-height: 1.8;
+        }
+        
+        /* নেভিগেশন বার */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            margin: 0 8px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+        
+        /* পেজ হিরো */
+        .page-hero {
+            background: linear-gradient(rgba(26, 93, 26, 0.8), rgba(26, 93, 26, 0.9)), url('https://images.unsplash.com/photo-1592913409969-3bb6b4ff5c48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        /* সেকশন স্টাইল */
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 3px;
+            background: var(--secondary-color);
+            bottom: -10px;
+            left: 15%;
+        }
+        
+        /* যোগাযোগ কার্ড */
+        .contact-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            height: 100%;
+            transition: transform 0.3s;
+            border-top: 4px solid var(--primary-color);
+            text-align: center;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 20px;
+        }
+        
+        /* ফর্ম স্টাইল */
+        .contact-form {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+        }
+        
+        .form-control {
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(26, 93, 26, 0.25);
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        
+        /* ম্যাপ স্টাইল */
+        .map-container {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            height: 400px;
+        }
+        
+        /* সোশ্যাল মিডিয়া */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        /* টিম মেম্বার */
+        .team-member {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .member-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 4px solid var(--primary-color);
+        }
+        
+        /* ফুটার */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer h5 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer h5:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .footer-social-links a:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        /* রেস্পন্সিভ */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .contact-card {
+                margin-bottom: 20px;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- নেভিগেশন বার -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cricket me-2"></i>GPL ২০২৫
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">হোম</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="teams.html">টিমসমূহ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fixtures.html">ফিক্সচার</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="points.html">পয়েন্ট টেবিল</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="results.html">রেজাল্ট</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">গ্যালারি</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contact.html">যোগাযোগ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- পেজ হিরো -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">GPL যোগাযোগ</h1>
+            <p class="hero-subtitle bn-text">গোটেরগ্রাম প্রিমিয়ার লীগের সাথে যোগাযোগ করুন। যেকোনো প্রশ্ন, পরামর্শ বা অংশগ্রহণের জন্য আমরা এখানে আছি।</p>
+        </div>
+    </section>
+
+    <!-- যোগাযোগ সেকশন -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">আমাদের সাথে যোগাযোগ করুন</h2>
+            
+            <div class="row mb-5">
+                <div class="col-md-4 mb-4">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4>ঠিকানা</h4>
+                        <p class="bn-text">গোটেরগ্রাম, বালাউট-৩১৯০<br>জকিগঞ্জ, সিলেট<br>বাংলাদেশ</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h4>ফোন নম্বর</h4>
+                        <p>+৮৮০১৯৬৭৮৬২৩৯৯৯</p>
+                        <p>+৮৮০১৭১২৩৪৫৬৭৮</p>
+                        <small class="text-muted">সকাল ৯টা - সন্ধ্যা ৬টা</small>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4>ইমেইল</h4>
+                        <p>info@gpl-bd.com</p>
+                        <p>support@gpl-bd.com</p>
+                        <small class="text-muted">২৪ ঘন্টার মধ্যে উত্তর</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="contact-form">
+                        <h3 class="mb-4">মেসেজ পাঠান</h3>
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">আপনার নাম</label>
+                                        <input type="text" class="form-control" id="name" placeholder="পূর্ণ নাম লিখুন" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">ইমেইল ঠিকানা</label>
+                                        <input type="email" class="form-control" id="email" placeholder="email@example.com" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">বিষয়</label>
+                                <input type="text" class="form-control" id="subject" placeholder="মেসেজের বিষয় লিখুন" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">মেসেজ</label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="আপনার মেসেজ এখানে লিখুন..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>মেসেজ পাঠান
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="contact-card">
+                        <h4 class="mb-4">সোশ্যাল মিডিয়ায় যুক্ত হোন</h4>
+                        <p class="bn-text mb-4">আমাদের সাম্প্রতিক আপডেট, ম্যাচ হাইলাইটস এবং ইভেন্ট সম্পর্কে জানতে সোশ্যাল মিডিয়ায় ফলো করুন।</p>
+                        
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/eagle.group.2024" target="_blank" class="social-link">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h5>ফেসবুক পেজ</h5>
+                            <p class="bn-text">আমাদের ফেসবুক পেজে লাইক দিন এবং আপডেট পান</p>
+                            <a href="https://www.facebook.com/eagle.group.2024" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="fab fa-facebook me-1"></i> Eagle Group 2024
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ম্যাপ সেকশন -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center section-title">আমাদের অবস্থান</h2>
+            <p class="text-center mb-4 bn-text">গোটেরগ্রাম পশ্চিম মাঠ, বালাউট-৩১৯০, জকিগঞ্জ, সিলেট। নিচের ম্যাপে আমাদের exact location দেখুন।</p>
+            
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.834935723841!2d91.8126233150055!3d24.95926598400864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375055c4dbb34245%3A0x5c5f5e5b5c5f5e5b!2sZakiganj%2C%20Sylhet!5e0!3m2!1sen!2sbd!4v1640000000000!5m2!1sen!2sbd" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-bus text-primary fs-4"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5>বাসে করে</h5>
+                            <p class="bn-text mb-0">সিলেট শহর থেকে জকিগঞ্জের বাসে করে গোটেরগ্রাম আসুন</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-car text-primary fs-4"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5>প্রাইভেট কার</h5>
+                            <p class="bn-text mb-0">সিলেট-জকিগঞ্জ সড়ক হয়ে গোটেরগ্রাম পশ্চিম মাঠ</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-motorcycle text-primary fs-4"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5>মোটরসাইকেল</h5>
+                            <p class="bn-text mb-0">সিএনজি বা মোটরসাইকেল ভাড়া করে আসতে পারেন</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- টিম কন্টাক্ট -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">আমাদের টিম</h2>
+            <p class="text-center mb-5 bn-text">GPL আয়োজনে যারা কাজ করছেন তাদের সাথে সরাসরি যোগাযোগ করুন</p>
+            
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member" class="member-photo">
+                        <h5>মো: রফিকুল ইসলাম</h5>
+                        <p class="text-muted">প্রেসিডেন্ট</p>
+                        <p class="bn-text small">+৮৮০১৯৬৭৮৬২৩৯৯৯</p>
+                        <a href="mailto:rafiq@gpl-bd.com" class="btn btn-outline-primary btn-sm">ইমেইল করুন</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-4">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Team Member" class="member-photo">
+                        <h5>মো: সাকিব আলম</h5>
+                        <p class="text-muted">সেক্রেটারি</p>
+                        <p class="bn-text small">+৮৮০১৭১২৩৪৫৬৭৮</p>
+                        <a href="mailto:sakib@gpl-bd.com" class="btn btn-outline-primary btn-sm">ইমেইল করুন</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-4">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Team Member" class="member-photo">
+                        <h5>মো: ফারুক হোসেন</h5>
+                        <p class="text-muted">ট্রেজারার</p>
+                        <p class="bn-text small">+৮৮০১৮৭৬৫৪৩২১০</p>
+                        <a href="mailto:faruk@gpl-bd.com" class="btn btn-outline-primary btn-sm">ইমেইল করুন</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-4">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Team Member" class="member-photo">
+                        <h5>মো: ইমরান হোসেন</h5>
+                        <p class="text-muted">মিডিয়া কোঅর্ডিনেটর</p>
+                        <p class="bn-text small">+৮৮০১৬১২৩৪৫৬৭৮</p>
+                        <a href="mailto:imran@gpl-bd.com" class="btn btn-outline-primary btn-sm">ইমেইল করুন</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>গোটেরগ্রাম প্রিমিয়ার লীগ</h5>
+                    <p class="bn-text">গ্রামীণ ক্রিকেটের উন্নয়ন এবং স্থানীয় প্রতিভা বিকাশের লক্ষ্যে কাজ করে যাচ্ছে GPL। আমাদের সাথে যুক্ত হোন।</p>
+                    <div class="footer-social-links">
+                        <a href="https://www.facebook.com/eagle.group.2024" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>দ্রুত লিংক</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-light">হোম</a></li>
+                        <li><a href="teams.html" class="text-light">টিমসমূহ</a></li>
+                        <li><a href="fixtures.html" class="text-light">ফিক্সচার</a></li>
+                        <li><a href="points.html" class="text-light">পয়েন্ট টেবিল</a></li>
+                        <li><a href="results.html" class="text-light">রেজাল্ট</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>যোগাযোগ</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>গোটেরগ্রাম, বালাউট-৩১৯০, জকিগঞ্জ, সিলেট</p>
+                    <p><i class="fas fa-phone me-2"></i>+৮৮০১৯৬৭৮৬২৩৯৯৯</p>
+                    <p><i class="fas fa-envelope me-2"></i>info@gpl-bd.com</p>
+                </div>
+            </div>
+            <hr class="mt-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center pt-3">
+                <p class="mb-0">© ২০২৫ গোটেরগ্রাম প্রিমিয়ার লীগ। সকল অধিকার সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // ফর্ম ভ্যালিডেশন
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // সহজ ভ্যালিডেশন
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                if (name && email && subject && message) {
+                    // সফল মেসেজ
+                    alert('আপনার মেসেজটি সফলভাবে পাঠানো হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।');
+                    contactForm.reset();
+                } else {
+                    alert('দয়া করে সকল তথ্য সঠিকভাবে পূরণ করুন।');
+                }
+            });
+            
+            // ফেসবুক লিংক ওপেন
+            const fbLinks = document.querySelectorAll('a[href*="facebook.com"]');
+            fbLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // নতুন ট্যাবে ওপেন করার জন্য
+                    e.preventDefault();
+                    window.open(this.href, '_blank');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
